@@ -3,7 +3,7 @@
 import rospy
 import cv2
 import numpy as np
-from usv_perception.srv import color_boya
+from usv_perception.srv import color_id
 from cv_bridge import CvBridge, CvBridgeError
 
 bridge = CvBridge()
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     rospy.init_node('color_srv')
     rospy.loginfo("Node created!")
 
-    service = rospy.Service("/get_color", color_boya, callback_color)
+    service = rospy.Service("/get_color", color_id, callback_color)
 
     rate = rospy.Rate(10)
 

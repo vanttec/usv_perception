@@ -5,7 +5,7 @@ from std_msgs.msg import String
 from imutils.video import VideoStream
 from imutils.video import FPS
 
-from usv_perception.srv import color_boya
+from usv_perception.srv import color_id
 #from srv import DistanceCal
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
@@ -70,7 +70,7 @@ class Detection_Node:
         img = self.bridge.cv2_to_imgmsg(img, encoding = "bgr8")
         rospy.wait_for_service("/get_color")
 
-        service = rospy.ServiceProxy("/get_color", color_boya)
+        service = rospy.ServiceProxy("/get_color", color_id)
         color = service(img,x,y,w,h)
 
         return color
