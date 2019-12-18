@@ -5,14 +5,14 @@ from std_msgs.msg import String
 from imutils.video import VideoStream
 from imutils.video import FPS
 
-from srv import color
+from usv_perception.srv import color_boya
 #from srv import DistanceCal
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import PointCloud2
 
-from msg import obj_detected
-from msg import obj_detected_list
+from usv_perception.msg import obj_detected
+from usv_perception.msg import obj_detected_list
 
 import sensor_msgs.point_cloud2 as pc2
 
@@ -70,7 +70,7 @@ class Detection_Node:
         img = self.bridge.cv2_to_imgmsg(img, encoding = "bgr8")
         rospy.wait_for_service("/get_color")
 
-        service = rospy.ServiceProxy("/get_color", color_srv)
+        service = rospy.ServiceProxy("/get_color", color_boya)
         color = service(img,x,y,w,h)
 
         return color
@@ -81,7 +81,7 @@ class Detection_Node:
 
         # Initialize detector
         self.send_message(Color.GREEN, "[INFO] Initializing TinyYOLOv3 detector.")
-        det = Detector("/home/nvidia/catkin_ws/src/boat/scripts/vantec-config/tiny3.cfg", "/home/nvidia/catkin_ws/src/boat/scripts/vantec-config/tiny3_68000.weights", "/home/nvidia/catkin_ws/src/boat/scripts/vantec-config/obj.names")
+        det = Detector("/home/ivana/vanttec_ws/src/usv_perception/scripts/yolo-config/tiny3.cfg", "/home/ivana/vanttec_ws/src/usv_perception/scripts/yolo-config/tiny3_68000.weights", "/home/ivana/vanttec_ws/src/usv_perception/scripts/yolo-config/obj.names")
 
         (H, W) = (None, None)
 
@@ -248,7 +248,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('yolo_zed')
 
-        rate = rospy.Rate(10) # 10Hz
+        rate = rospy.Rate(20) # 20Hz
         D = Detection_Node()
         D.detect()
     except rospy.ROSInterruptException:

@@ -1,2 +1,2 @@
 int64 len
-ObjDetected[] objects
+obj_detected[] objects
