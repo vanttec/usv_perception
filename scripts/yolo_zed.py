@@ -46,7 +46,7 @@ class Detection_Node:
         rospy.Subscriber("/zed/zed_node/rgb/image_rect_color", Image, self.callback_zed_img)
         rospy.Subscriber("/zed/zed_node/point_cloud/cloud_registered", PointCloud2, self.callback_zed_cp)
 
-        self.detector_pub = rospy.Publisher('/objects_detected', obj_detected_list, queue_size=10)
+        self.detector_pub = rospy.Publisher('/usv_perception/yolo_zed/objects_detected', obj_detected_list, queue_size=10)
 
 
     def callback_zed_img(self,img):
