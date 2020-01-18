@@ -81,7 +81,9 @@ class Detection_Node:
 
         # Initialize detector
         self.send_message(Color.GREEN, "[INFO] Initializing TinyYOLOv3 detector.")
-        det = Detector("/home/ivana/vanttec_ws/src/usv_perception/scripts/yolo-config/tiny3.cfg", "/home/ivana/vanttec_ws/src/usv_perception/scripts/yolo-config/tiny3_68000.weights", "/home/ivana/vanttec_ws/src/usv_perception/scripts/yolo-config/obj.names")
+        det = Detector("./yolo-config/tiny3.cfg",
+                       "./yolo-config/tiny3_68000.weights",
+                       "./yolo-config/obj.names")
 
         (H, W) = (None, None)
 
