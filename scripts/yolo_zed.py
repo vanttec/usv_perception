@@ -27,6 +27,8 @@ import rospy
 import cv2
 import math
 
+import os
+
 class Color():
     BLUE  = '\033[94m'
     GREEN = '\033[92m'
@@ -81,9 +83,14 @@ class Detection_Node:
 
         # Initialize detector
         self.send_message(Color.GREEN, "[INFO] Initializing TinyYOLOv3 detector.")
-        det = Detector("./yolo-config/tiny3.cfg",
-                       "./yolo-config/tiny3_68000.weights",
-                       "./yolo-config/obj.names")
+        dirname = os.path.dirname(__file__)
+        tiny3_file = dirname + "/yolo-config/tiny3.cfg"
+        weights_file = dirname + "/yolo-config/tiny3_68000.weights"
+        names_file = dirname + "/yolo-config/obj.names"
+
+        det = Detector(tiny3_file,
+                       weights_file,
+                       names_file)
 
         (H, W) = (None, None)
 
